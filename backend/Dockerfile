@@ -3,6 +3,7 @@ FROM node:14
 WORKDIR /app
 
 COPY package*.json ./
+COPY ormconfig.json ./
 
 RUN npm install
 

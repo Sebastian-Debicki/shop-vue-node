@@ -15,10 +15,6 @@ services:
   db:
     image: postgres
     restart: always
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: shop
     volumes:
       - ./backend/pgdata:/var/lib/postgresql/data
     ports:
@@ -30,11 +26,6 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    environment:
-      DB_SCHEMA: postgres
-      DB_USER: postgres
-      DB_PASSWORD: postgres
-      DB_HOST: postgres
     volumes:
       - ./backend:/app
     ports:

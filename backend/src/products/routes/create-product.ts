@@ -1,22 +1,21 @@
 import express from 'express';
+import { getRepository } from 'typeorm';
 
-import { pool } from '../../db';
+import { Product } from '../../entity/Product';
 
 const router = express.Router();
 
 router.post('/api/products', async (req, res) => {
-  try {
-    const { description } = req.body;
+  const productRepo = getRepository(Product);
 
-    const newProduct = await pool.query(
-      'INSERT INTO products (description) VALUES ($1) RETURNING *',
-      [description]
-    );
+  const product = productRepo.create({
+    price: req.body.price,
+    description: req.body.description,
+  });
 
-    res.status(201).json(newProduct);
-  } catch (err) {
-    console.log(err.message);
-  }
+  await productRepo.save(product);
+
+  res.status(201).send(product);
 });
 
 export { router as createProductRouter };

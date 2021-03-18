@@ -1,16 +1,16 @@
 import express from 'express';
-import { pool } from '../../db';
+import { getRepository } from 'typeorm';
+
+import { Product } from '../../entity/Product';
 
 const router = express.Router();
 
 router.get('/api/products', async (req, res) => {
-  try {
-    const products = await pool.query('SELECT * FROM products');
+  const products = await getRepository(Product).find()
 
-    res.status(200).json(products.rows);
-  } catch (err) {
-    console.log(err.message);
-  }
+  res.status(200).send({
+    products
+  })
 });
 
 export { router as getProductsRouter };
