@@ -12,11 +12,21 @@ services:
       - CHOKIDAR_USEPOLLING=true
     stdin_open: true
 
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - ./backend/pgdata:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
   backend:
+    depends_on:
+      - db
     build:
       context: ./backend
       dockerfile: Dockerfile
-    ports:
-      - 3000:3000
     volumes:
       - ./backend:/app
+    ports:
+      - '3000:3000'
