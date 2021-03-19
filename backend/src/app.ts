@@ -9,6 +9,7 @@ import {
   deleteProductRouter,
   updateProductRouter,
 } from './products';
+import { signupRouter, getUsersRouter } from './auth';
 
 const app = express();
 
@@ -18,6 +19,9 @@ app.use(getProductsRouter);
 app.use(createProductRouter);
 app.use(deleteProductRouter);
 app.use(updateProductRouter);
+
+app.use(signupRouter);
+app.use(getUsersRouter);
 
 app.all('*', async (req, res, next) => {
   next(new createError.NotFound(`Can't find ${req.originalUrl}`));

@@ -1,1 +1,2 @@
-export { productValidator } from './product';
+export * from './product';
+export * from './auth';
