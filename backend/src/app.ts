@@ -8,8 +8,8 @@ import {
   createProductRouter,
   deleteProductRouter,
   updateProductRouter,
-} from './products';
-import { signupRouter, getUsersRouter } from './auth';
+} from './routes/products';
+import { signupRouter, getUsersRouter } from './routes/auth';
 
 const app = express();
 

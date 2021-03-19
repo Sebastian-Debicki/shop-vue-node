@@ -13,10 +13,20 @@ router.post(
   validateRequest,
   async (req: Request, res: Response) => {
     const userRepo = getRepository(User);
-    const { id, email, password, confirmPassword, photo } = req.body;
+    const {
+      id,
+      firstName,
+      lastName,
+      email,
+      password,
+      confirmPassword,
+      photo,
+    } = req.body;
 
     const user = userRepo.create({
       id,
+      firstName,
+      lastName,
       email,
       password,
       confirmPassword,
