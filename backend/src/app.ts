@@ -1,16 +1,28 @@
 import express from 'express';
+import 'express-async-errors';
+import createError from 'http-errors';
 
-import { getProductsRouter } from './products/routes/get-products';
-import { createProductRouter } from './products/routes/create-product';
-import { createConnection } from 'typeorm';
+import { errorHandler } from './common';
+import {
+  getProductsRouter,
+  createProductRouter,
+  deleteProductRouter,
+  updateProductRouter,
+} from './products';
 
 const app = express();
 
 app.use(express.json());
 
-createConnection().then(() => console.log('DB connection success!')).catch((err) => console.log(err))
-
 app.use(getProductsRouter);
 app.use(createProductRouter);
+app.use(deleteProductRouter);
+app.use(updateProductRouter);
+
+app.all('*', async (req, res) => {
+  throw new createError.NotFound();
+});
+
+app.use(errorHandler);
 
 export { app };

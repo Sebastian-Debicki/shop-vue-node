@@ -11,6 +11,7 @@ services:
     environment:
       - CHOKIDAR_USEPOLLING=true
     stdin_open: true
+    container_name: client
 
   db:
     image: postgres
@@ -19,6 +20,7 @@ services:
       - ./backend/pgdata:/var/lib/postgresql/data
     ports:
       - '5432:5432'
+    container_name: db
 
   backend:
     depends_on:
@@ -30,3 +32,4 @@ services:
       - ./backend:/app
     ports:
       - '3000:3000'
+    container_name: backend
