@@ -6,7 +6,7 @@
       "es5",
       "dom"
     ],
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "target": "es5",
@@ -20,11 +20,4 @@
     "sourceMap": false,
     "strictPropertyInitialization": false
   },
-  "exclude": [
-    "./node_modules/**/*",
-    "./build/**/*"
-  ],
-  "include": [
-    "./src/**/*"
-  ]
 }
