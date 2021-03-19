@@ -1,19 +1,14 @@
 import express, { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
-import { body } from 'express-validator';
 
 import { Product } from '../../entity';
-import { validateRequest } from '../../common';
+import { productValidator, validateRequest } from '../../common';
 
 const router = express.Router();
 
 router.post(
   '/api/products',
-  [
-    body('price').not().isEmpty().withMessage('Price is required'),
-    body('description').not().isEmpty().withMessage('Description is required'),
-  ],
-
+  productValidator,
   validateRequest,
   async (req: Request, res: Response) => {
     const productRepo = getRepository(Product);

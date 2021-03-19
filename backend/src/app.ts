@@ -20,9 +20,7 @@ app.use(deleteProductRouter);
 app.use(updateProductRouter);
 
 app.all('*', async (req, res, next) => {
-  next(
-    new createError.NotFound(`Can't find ${req.originalUrl} on this server`),
-  );
+  next(new createError.NotFound(`Can't find ${req.originalUrl}`));
 });
 
 app.use(errorController);
