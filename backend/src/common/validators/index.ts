@@ -1,0 +1,1 @@
+export { productValidator } from './product';

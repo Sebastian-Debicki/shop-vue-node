@@ -1,7 +1,7 @@
 import express from 'express';
 import { getRepository } from 'typeorm';
 
-import { Product } from '../../entity';
+import { Product } from '../../entity/Product';
 
 const router = express.Router();
 

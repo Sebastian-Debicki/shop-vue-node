@@ -2,7 +2,7 @@ import express from 'express';
 import 'express-async-errors';
 import createError from 'http-errors';
 
-import { errorHandler } from './common';
+import { errorController } from './common';
 import {
   getProductsRouter,
   createProductRouter,
@@ -19,10 +19,10 @@ app.use(createProductRouter);
 app.use(deleteProductRouter);
 app.use(updateProductRouter);
 
-app.all('*', async (req, res) => {
-  throw new createError.NotFound();
+app.all('*', async (req, res, next) => {
+  next(new createError.NotFound(`Can't find ${req.originalUrl}`));
 });
 
-app.use(errorHandler);
+app.use(errorController);
 
 export { app };
