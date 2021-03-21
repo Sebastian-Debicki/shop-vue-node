@@ -20,7 +20,11 @@ router.post(
 
     await productRepo.save(product);
 
-    res.status(201).send(product);
+    res.status(201).send({
+      data: {
+        product,
+      },
+    });
   },
 );
 

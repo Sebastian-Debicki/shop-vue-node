@@ -9,7 +9,9 @@ router.get('/api/products', async (req, res) => {
   const products = await getRepository(Product).find();
 
   res.status(200).send({
-    products,
+    data: {
+      products,
+    },
   });
 });
 

@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { body } from 'express-validator';
+import jwt from 'jsonwebtoken';
 import { getRepository } from 'typeorm';
 
 import { User } from '../../entity';
@@ -19,9 +19,13 @@ router.post(
       lastName,
       email,
       password,
-      confirmPassword,
+      passwordConfirm,
       photo,
     } = req.body;
+
+    const token = jwt.sign({ id }, process.env.JWT_SECRET!, {
+      expiresIn: process.env.JWT_EXPIRES_IN,
+    });
 
     const user = userRepo.create({
       id,
@@ -29,13 +33,18 @@ router.post(
       lastName,
       email,
       password,
-      confirmPassword,
+      passwordConfirm,
       photo,
     });
 
     await userRepo.save(user);
 
-    res.status(201).send(user);
+    res.status(201).send({
+      token,
+      data: {
+        user,
+      },
+    });
   },
 );
 

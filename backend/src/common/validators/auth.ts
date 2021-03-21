@@ -21,12 +21,10 @@ const password = [
 export const signupValidator = [
   ...email,
   ...password,
-  body('confirmPassword')
+  body('passwordConfirm')
     .not()
     .isEmpty()
     .withMessage('Password confirmation is required')
     .isLength({ min: 6, max: 30 })
-    .withMessage('Password length must be beetwen 6-30.')
-    .equals('password')
-    .withMessage('Passwords must be the same.'),
+    .withMessage('Password length must be beetwen 6-30.'),
 ];

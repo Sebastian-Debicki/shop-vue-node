@@ -9,7 +9,9 @@ router.get('/users', async (req, res) => {
   const users = await getRepository(User).find();
 
   res.status(200).send({
-    users,
+    data: {
+      users,
+    },
   });
 });
 
