@@ -19,9 +19,10 @@ const start = () => {
     .then(() => console.log('DB connection success!'))
     .catch((err) => console.log(err));
 
-  const portNumber = process.env.MAIN_PORT;
-  app.listen(portNumber, () => {
-    console.log(`Backend is listening on port: http://localhost:${portNumber}`);
+  app.listen(process.env.MAIN_PORT, () => {
+    console.log(
+      `Backend is listening on port: http://localhost:${process.env.MAIN_PORT}`,
+    );
   });
 };
 

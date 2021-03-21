@@ -26,5 +26,12 @@ export const signupValidator = [
     .isEmpty()
     .withMessage('Password confirmation is required')
     .isLength({ min: 6, max: 30 })
-    .withMessage('Password length must be beetwen 6-30.'),
+    .withMessage('Password length must be beetwen 6-30.')
+    .custom((value, { req }) => {
+      if (value !== req.body.password) {
+        throw new Error('Passwords must be equals');
+      } else {
+        return value;
+      }
+    }),
 ];

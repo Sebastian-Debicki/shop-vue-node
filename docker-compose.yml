@@ -23,6 +23,7 @@ services:
     container_name: db
 
   backend:
+    env_file: .env
     depends_on:
       - db
     build:
