@@ -12,20 +12,23 @@ router.post(
   validateRequest,
   async (req: Request, res: Response) => {
     const productRepo = getRepository(Product);
+    const { price, description } = req.body;
 
     const product = await productRepo.findOne({ where: { id: req.params.id } });
 
     if (product) {
       await productRepo.update(product, {
-        price: req.body.price,
-        description: req.body.description,
+        price,
+        description,
       });
-    } else return;
+    }
 
     res.status(201).send({
-      ...product,
-      price: req.body.price,
-      description: req.body.description,
+      data: {
+        ...product,
+        price,
+        description,
+      },
     });
   },
 );

@@ -2,13 +2,14 @@ import express from 'express';
 import 'express-async-errors';
 import createError from 'http-errors';
 
-import { errorController } from './common';
+import { errorController, protectRoute } from './common';
 import {
   getProductsRouter,
   createProductRouter,
   deleteProductRouter,
   updateProductRouter,
-} from './products';
+} from './routes/products';
+import { signupRouter, getUsersRouter, signinRouter } from './routes/auth';
 
 const app = express();
 
@@ -18,6 +19,10 @@ app.use(getProductsRouter);
 app.use(createProductRouter);
 app.use(deleteProductRouter);
 app.use(updateProductRouter);
+
+app.use(signupRouter);
+app.use(signinRouter);
+app.use(getUsersRouter);
 
 app.all('*', async (req, res, next) => {
   next(new createError.NotFound(`Can't find ${req.originalUrl}`));
