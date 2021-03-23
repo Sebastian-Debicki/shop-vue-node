@@ -24,7 +24,7 @@ export class User {
   @Column()
   password: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, select: false })
   passwordConfirm?: string;
 
   @Column({ nullable: true })

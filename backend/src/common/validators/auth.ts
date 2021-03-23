@@ -35,3 +35,5 @@ export const signupValidator = [
       }
     }),
 ];
+
+export const signinValidator = [...email, ...password];
