@@ -9,6 +9,6 @@ html {
 body {
   font-family: 'Nunito', sans-serif;
   background-color: color.$grey;
-  color: '#222222';
+  color: color.$dark-grey;
   @include font.format-text('normal', 600)
 }
