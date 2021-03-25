@@ -3,7 +3,6 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  ManyToOne,
 } from 'typeorm';
 
 import { Product } from './Product';
@@ -13,11 +12,20 @@ export class Order {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @CreateDateColumn({ type: 'timestamp' })
+  @CreateDateColumn({ type: 'date' })
   orderDate: Date;
 
   @Column()
   userId: string;
+
+  @Column()
+  deliveryType: string;
+
+  @Column('decimal')
+  deliveryCosts: number;
+
+  @Column('decimal')
+  totalPrice: number;
 
   @Column('jsonb')
   products: Product[];

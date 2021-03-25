@@ -2,13 +2,14 @@ import express, { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import { Unauthorized } from 'http-errors';
 
-import { productValidator, validateRequest } from '../../common';
+import { productValidator, protectRoute, validateRequest } from '../../common';
 import { Product } from '../../entity';
 
 const router = express.Router();
 
 router.post(
   '/api/products/:id',
+  protectRoute,
   productValidator,
   validateRequest,
   async (req: Request, res: Response) => {
@@ -23,23 +24,17 @@ router.post(
         `Sorry, you can't update product that is not belong to you.`,
       );
 
-    if (product) {
-      await productRepo.save({
-        ...product,
-        name,
-        price,
-        promotion,
-        description,
-      });
-    }
+    const updatedProduct = await productRepo.save({
+      ...product,
+      name,
+      price,
+      promotion,
+      description,
+    });
 
     res.status(201).send({
       data: {
-        ...product,
-        name,
-        price,
-        promotion,
-        description,
+        product: updatedProduct,
       },
     });
   },

@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 
-import { Order } from '../../entity';
+import { Order, Product } from '../../entity';
 import { validateRequest, protectRoute, orderValidator } from '../../common';
 
 const router = express.Router();
@@ -12,12 +12,20 @@ router.post(
   orderValidator,
   validateRequest,
   async (req: Request, res: Response) => {
-    const { products } = req.body;
+    const { products, deliveryType, deliveryCosts } = req.body;
 
     const orderRepo = await getRepository(Order);
 
+    const totalPrice = products.reduce(
+      (t: number, cur: Product) => (t += cur.price),
+      0,
+    );
+
     const order = orderRepo.create({
       userId: req.currentUser?.id,
+      deliveryType,
+      deliveryCosts,
+      totalPrice: Number(totalPrice),
       products,
     });
 

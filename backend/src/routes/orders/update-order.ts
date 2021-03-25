@@ -24,19 +24,14 @@ router.post(
         `Sorry, you can't update order that is not belong to you.`,
       );
 
-    if (order) {
-      await orderRepo.save({
-        ...order,
-        products,
-      });
-    }
+    const updatedOrder = await orderRepo.save({
+      ...order,
+      products,
+    });
 
     res.status(201).send({
       data: {
-        order: {
-          ...order,
-          products,
-        },
+        order: updatedOrder,
       },
     });
   },

@@ -39,11 +39,11 @@ export const protectRoute = async (
 
   const decoded = (await jwt.verify(token, process.env.JWT_SECRET!)) as Decoded;
 
+  req.currentUser = decoded;
+
   const user = await getRepository(User).find({ id: decoded.id });
   if (!user)
     throw new Unauthorized('The user belonging to this token no longer exist.');
-
-  req.currentUser = decoded;
 
   next();
 };
