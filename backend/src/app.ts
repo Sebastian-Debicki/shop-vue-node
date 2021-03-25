@@ -2,7 +2,7 @@ import express from 'express';
 import 'express-async-errors';
 import createError from 'http-errors';
 
-import { errorController, protectRoute } from './common';
+import { errorController } from './common';
 import {
   getProductsRouter,
   createProductRouter,
@@ -10,7 +10,12 @@ import {
   updateProductRouter,
 } from './routes/products';
 import { signupRouter, getUsersRouter, signinRouter } from './routes/auth';
-import { createOrderRouter, getOrdersRouter } from './routes/orders';
+import {
+  createOrderRouter,
+  deleteOrderRouter,
+  getOrdersRouter,
+  updateOrderRouter,
+} from './routes/orders';
 
 const app = express();
 
@@ -27,6 +32,8 @@ app.use(getUsersRouter);
 
 app.use(getOrdersRouter);
 app.use(createOrderRouter);
+app.use(updateOrderRouter);
+app.use(deleteOrderRouter);
 
 app.all('*', async (req, res, next) => {
   next(new createError.NotFound(`Can't find ${req.originalUrl}`));
