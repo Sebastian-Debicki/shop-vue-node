@@ -11,6 +11,14 @@ interface Decoded {
   exp: number;
 }
 
+declare global {
+  namespace Express {
+    interface Request {
+      currentUser?: Decoded;
+    }
+  }
+}
+
 export const protectRoute = async (
   req: Request,
   res: Response,
@@ -34,6 +42,8 @@ export const protectRoute = async (
   const user = await getRepository(User).find({ id: decoded.id });
   if (!user)
     throw new Unauthorized('The user belonging to this token no longer exist.');
+
+  req.currentUser = decoded;
 
   next();
 };
